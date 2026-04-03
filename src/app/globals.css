@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: oklch(0.8 0.12 300);
+  --color-primary-dim: oklch(0.7 0.1 300);
+  --color-background: oklch(0.1 0.02 260);
+  --color-surface: oklch(0.13 0.025 260);
+  --color-surface-elevated: oklch(0.16 0.025 260);
+  --color-border: oklch(0.25 0.02 260);
+  --color-text: oklch(0.95 0.01 260);
+  --color-text-muted: oklch(0.65 0.02 260);
+
+  --font-outfit: "Outfit", "Trebuchet MS", system-ui, sans-serif;
+  --font-inter: "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-outfit);
+  --font-body: var(--font-inter);
+
+  --radius-bento: 1.5rem;
+  --radius-card: 1rem;
+
+  --shadow-card: 0 0 0 1px oklch(0.25 0.02 260), 0 4px 24px oklch(0.08 0.02 260 / 0.6);
+  --shadow-glow: 0 0 40px oklch(0.8 0.12 300 / 0.15);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-inter);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: oklch(0.8 0.12 300 / 0.3);
+  color: var(--color-text);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.8 0.12 300 / 0.4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.8 0.12 300 / 0.7);
+}
