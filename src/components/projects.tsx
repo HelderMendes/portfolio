@@ -1,13 +1,17 @@
+"use client"
+
 import * as React from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "@/components/language-provider"
 import { ProjectCard } from "@/components/project-card"
+import { ProjectModal } from "@/components/project-modal"
 import { PROJECTS } from "@/lib/data"
 import { Button } from "@/components/ui/button"
-import { motion, AnimatePresence } from "framer-motion"
 
 export function Projects() {
   const { language } = useLanguage()
   const [activeCategory, setActiveCategory] = React.useState<string | null>(null)
+  const [selectedProjectIndex, setSelectedProjectIndex] = React.useState<number | null>(null)
 
   const categories = React.useMemo(() => {
     const all = PROJECTS.map(p => language === "en" ? p.category.en : p.category.nl)
@@ -26,6 +30,12 @@ export function Projects() {
       nl: "Een overzicht van hoogwaardige webapplicaties en digitale identiteiten."
     },
     all: { en: "All", nl: "Alle" }
+  }
+
+  // Helper to open project from filtered list correctly mapping to original PROJECTS index
+  const handleOpenProject = (projectId: string) => {
+    const index = PROJECTS.findIndex(p => p.id === projectId)
+    if (index !== -1) setSelectedProjectIndex(index)
   }
 
   return (
@@ -77,12 +87,25 @@ export function Projects() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
+              onClick={() => handleOpenProject(project.id)}
+              className="cursor-pointer"
             >
               <ProjectCard project={project} />
             </motion.div>
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {/* Full-Screen Project Gallery Modal */}
+      <AnimatePresence>
+        {selectedProjectIndex !== null && (
+          <ProjectModal 
+            isOpen={true}
+            initialIndex={selectedProjectIndex}
+            onClose={() => setSelectedProjectIndex(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   )
 }

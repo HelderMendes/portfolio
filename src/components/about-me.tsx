@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useLanguage } from "@/components/language-provider"
+import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Palette, Code2, Layout, Award } from "lucide-react"
 
@@ -9,18 +10,18 @@ export function AboutMe() {
   const { language } = useLanguage()
 
   const content = {
-    title: { en: "The Designer-Developer Hybrid", nl: "De Designer-Developer Hybride" },
+    title: { en: "The Modern Full-Stack Architect", nl: "De Moderne Full-Stack Architect" },
     subtitle: { 
-      en: "Bridging the gap between aesthetic excellence and technical precision.",
-      nl: "De kloof overbruggen tussen esthetische uitmuntendheid en technische precisie."
+      en: "Leading with state-of-the-art web design and technical excellence.",
+      nl: "Toonaangevend met state-of-the-art webdesign en technische uitmuntendheid."
     },
     story: {
-      en: "With over 15 years in the creative industry, my journey began in the high-stakes world of high-end editorial design and Art Direction for global leaders such as **Philips**, **DaimlerChrysler**, and **Mercedes-Benz**. This foundation in visual hierarchy, typography, and complex grid systems now fuels my modern approach to Full Stack development.",
-      nl: "Met meer dan 15 jaar ervaring in de creatieve industrie begon mijn reis in de veeleisende wereld van hoogwaardig redactioneel ontwerp en Art Direction voor wereldwijde marktleiders als **Philips**, **DaimlerChrysler** en **Mercedes-Benz**. Dit fundament in visuele hiërarchie, typografie en complexe grid-systemen vormt nu de brandstof voor mijn moderne aanpak van Full Stack ontwikkeling."
+      en: "As the Frontend Migration Lead for **OpenML.org**, I specialize in transforming complex data ecosystems into high-performance, design-led React platforms. My approach combines rigorous Next.js architecture with the visual precision of a 15-year Art Direction heritage.",
+      nl: "Als Frontend Migratie Lead voor **OpenML.org** ben ik gespecialiseerd in het transformeren van complexe data-ecosystemen naar hoogwaardige, design-led React-platforms. Mijn aanpak combineert rigoureuze Next.js-architectuur met de visuele precisie van een 15-jarige Art Direction-achtergrond."
     },
     philosophy: {
-      en: "I don't just write code; I craft digital experiences. I believe that a performant backend is only as good as the interface that delivers it. My goal is to build tools that are as beautiful as they are functional.",
-      nl: "Ik schrijf niet alleen code; ik creëer digitale ervaringen. Ik geloof dat een performante backend pas echt tot zijn recht komt door de interface die het presenteert. Mijn doel is om tools te bouwen die even mooi als functioneel zijn."
+      en: "I build web applications that aren't just tools; they are seamless user experiences. From Dockerized microservices to pixel-perfect Tailwind v4 interfaces, my goal is to deliver technical solutions that scale without compromising on elite design standards.",
+      nl: "Ik bouw webapplicaties die niet alleen tools zijn; het zijn naadloze gebruikerservaringen. Van gedockeriseerde microservices tot pixel-perfecte Tailwind v4-interfaces, mijn doel is om technische oplossingen te leveren die schalen zonder concessies te doen aan elite designstandaarden."
     },
     stats: [
       { label: { en: "Years Experience", nl: "Jaar Ervaring" }, value: "15+", icon: Award },
@@ -73,24 +74,61 @@ export function AboutMe() {
             </div>
           </motion.div>
 
-          {/* Right: Abstract Visual or Image */}
+          {/* Right: Design Heritage Gallery */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative"
+            transition={{ duration: 1 }}
+            className="grid grid-cols-2 gap-4 h-[500px]"
           >
-            <div className="aspect-square rounded-3xl bg-linear-to-br from-primary/20 via-background to-primary/10 border border-primary/20 flex items-center justify-center p-8 relative overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--primary),0.1),transparent)]" />
-              <div className="z-10 text-center space-y-4">
-                <div className="text-5xl font-heading font-black text-primary/10 tracking-tighter uppercase select-none leading-none">
-                  Design<br/>Driven<br/>Development
-                </div>
-              </div>
-              {/* Decorative elements */}
-              <div className="absolute top-10 right-10 w-20 h-20 border-t border-r border-primary/30 rounded-tr-3xl" />
-              <div className="absolute bottom-10 left-10 w-20 h-20 border-b border-l border-primary/30 rounded-bl-3xl" />
+            <div className="space-y-4 pt-8">
+              <motion.div 
+                whileHover={{ y: -10 }}
+                className="relative aspect-3/4 rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+              >
+                <Image 
+                  src="/publicaties/Pim_magazine.jpg" 
+                  alt="Pim Magazine Cover" 
+                  fill 
+                  className="object-cover"
+                />
+              </motion.div>
+              <motion.div 
+                whileHover={{ y: -10 }}
+                className="relative aspect-3/4 rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+              >
+                <Image 
+                  src="/publicaties/Macau_cover.jpg" 
+                  alt="Macau Magazine Cover" 
+                  fill 
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
+            <div className="space-y-4">
+              <motion.div 
+                whileHover={{ y: -10 }}
+                className="relative aspect-3/4 rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+              >
+                <Image 
+                  src="/publicaties/Uva_Mosques_cover.jpg" 
+                  alt="Uva Mosques Cover" 
+                  fill 
+                  className="object-cover"
+                />
+              </motion.div>
+              <motion.div 
+                whileHover={{ y: -10 }}
+                className="relative aspect-3/4 rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+              >
+                <Image 
+                  src="/publicaties/Portfolio_magazine01.jpg" 
+                  alt="Portfolio Magazine" 
+                  fill 
+                  className="object-cover"
+                />
+              </motion.div>
             </div>
           </motion.div>
         </div>

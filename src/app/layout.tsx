@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   description: "Portfolio of Helder Mendes, a Full Stack Developer with 15+ years of experience in Graphic Design and Web Development.",
 };
 
+import { SidebarNav } from "@/components/sidebar-nav";
+import { Navbar } from "@/components/navbar";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${outfit.variable} antialiased`}
+        className={`${inter.variable} ${outfit.variable} antialiased bg-background text-foreground`}
       >
         <ThemeProvider
           attribute="class"
@@ -38,7 +41,13 @@ export default function RootLayout({
         >
           <LanguageProvider>
             <TooltipProvider>
-              {children}
+              <div className="relative min-h-screen">
+                <SidebarNav /> {/* This handles mobile drawer now */}
+                <Navbar /> {/* Restoring floating pill */}
+                <main className="relative">
+                  {children}
+                </main>
+              </div>
             </TooltipProvider>
           </LanguageProvider>
         </ThemeProvider>
