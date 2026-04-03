@@ -18,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses **Outfit** (headings) and **Inter** (body) via CSS variables with system font fallbacks, combined with Tailwind CSS v4 design tokens and an oklch-based Lavender/Navy color palette.
 
 ## Learn More
 
