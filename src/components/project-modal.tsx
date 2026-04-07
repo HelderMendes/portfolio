@@ -20,10 +20,29 @@ export function ProjectModal({ initialIndex, onClose, isOpen }: ProjectModalProp
   const { language } = useLanguage()
   const [currentIndex, setCurrentIndex] = React.useState(initialIndex)
   const [direction, setDirection] = React.useState(0)
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0)
+  const [imageDirection, setImageDirection] = React.useState(0)
 
   const project = PROJECTS[currentIndex]
 
-  // Handle navigation
+  // Reset image index when project changes
+  React.useEffect(() => {
+    setCurrentImageIndex(0)
+  }, [currentIndex])
+
+  const nextImage = React.useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation()
+    setImageDirection(1)
+    setCurrentImageIndex((prev) => (prev === project.images.length - 1 ? 0 : prev + 1))
+  }, [project.images.length])
+
+  const prevImage = React.useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation()
+    setImageDirection(-1)
+    setCurrentImageIndex((prev) => (prev === 0 ? project.images.length - 1 : prev - 1))
+  }, [project.images.length])
+
+  // Handle project navigation
   const nextProject = React.useCallback(() => {
     setDirection(1)
     setCurrentIndex((prev) => (prev === PROJECTS.length - 1 ? 0 : prev + 1))
@@ -42,7 +61,6 @@ export function ProjectModal({ initialIndex, onClose, isOpen }: ProjectModalProp
       if (e.key === "ArrowLeft") prevProject()
     }
     window.addEventListener("keydown", handleKeyDown)
-    // Prevent scrolling beneath modal
     document.body.style.overflow = "hidden"
     
     return () => {
@@ -51,7 +69,7 @@ export function ProjectModal({ initialIndex, onClose, isOpen }: ProjectModalProp
     }
   }, [onClose, nextProject, prevProject])
 
-  const variants = {
+  const projectVariants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 1000 : -1000,
       opacity: 0
@@ -68,6 +86,23 @@ export function ProjectModal({ initialIndex, onClose, isOpen }: ProjectModalProp
     })
   }
 
+  const imageVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 500 : -500,
+      opacity: 0
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 500 : -500,
+      opacity: 0
+    })
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -75,13 +110,10 @@ export function ProjectModal({ initialIndex, onClose, isOpen }: ProjectModalProp
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-100 flex items-center justify-center p-0 md:p-6 bg-background/95 backdrop-blur-xl"
     >
-      {/* Background Glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(var(--primary),0.15),transparent_50%)] pointer-events-none" />
 
-      {/* Main Container */}
       <div className="relative w-full h-full max-w-7xl mx-auto flex flex-col md:border md:border-border md:rounded-4xl overflow-hidden bg-background shadow-2xl">
         
-        {/* Navigation Controls (Floating) */}
         <div className="absolute top-6 right-6 z-50 flex gap-2">
           <Button 
             variant="outline" 
@@ -94,13 +126,13 @@ export function ProjectModal({ initialIndex, onClose, isOpen }: ProjectModalProp
           </Button>
         </div>
 
-        {/* Top 50%: Immersive Image Area */}
-        <div className="relative h-[40vh] md:h-1/2 w-full bg-muted/30 overflow-hidden group/image">
+        {/* Top 50%: Immersive Image Area with Nested Carousel */}
+        <div className="relative h-[45vh] md:h-1/2 w-full bg-muted/20 overflow-hidden group/image">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={currentIndex}
               custom={direction}
-              variants={variants}
+              variants={projectVariants}
               initial="enter"
               animate="center"
               exit="exit"
@@ -110,41 +142,106 @@ export function ProjectModal({ initialIndex, onClose, isOpen }: ProjectModalProp
               }}
               className="absolute inset-0"
             >
-              {project.image ? (
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover md:object-contain bg-muted/10 p-0 md:p-12"
-                  priority
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-primary/10 text-6xl font-black uppercase">
-                  {project.title}
-                </div>
-              )}
+              <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+                {/* Subtle Blurred Background Reflection */}
+                {project.images[currentImageIndex] && (
+                  <div 
+                    className="absolute inset-0 opacity-20 blur-3xl scale-110 pointer-events-none"
+                    style={{ backgroundImage: `url(${project.images[currentImageIndex]})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                  />
+                )}
+
+                <AnimatePresence initial={false} custom={imageDirection}>
+                  <motion.div
+                    key={`${currentIndex}-${currentImageIndex}`}
+                    custom={imageDirection}
+                    variants={imageVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{
+                      x: { type: "spring", stiffness: 300, damping: 30 },
+                      opacity: { duration: 0.2 }
+                    }}
+                    className="relative w-full h-full p-4 md:p-12 z-10"
+                  >
+                    {project.images[currentImageIndex] ? (
+                      <Image
+                        src={project.images[currentImageIndex]}
+                        alt={`${project.title} screenshot ${currentImageIndex + 1}`}
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-primary/10 text-6xl font-black uppercase">
+                        {project.title}
+                      </div>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Sub-navigation for Images (Inside Project) */}
+                {project.images.length > 1 && (
+                  <>
+                    <div className="absolute inset-y-0 left-4 flex items-center z-30 opacity-0 group-hover/image:opacity-100 transition-opacity">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={prevImage}
+                        className="rounded-full bg-background/40 backdrop-blur-md border-white/20 text-white hover:bg-white hover:text-black size-10"
+                      >
+                        <ChevronLeft className="size-5" />
+                      </Button>
+                    </div>
+                    <div className="absolute inset-y-0 right-4 flex items-center z-30 opacity-0 group-hover/image:opacity-100 transition-opacity">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={nextImage}
+                        className="rounded-full bg-background/40 backdrop-blur-md border-white/20 text-white hover:bg-white hover:text-black size-10"
+                      >
+                        <ChevronRight className="size-5" />
+                      </Button>
+                    </div>
+                    {/* Image Progress Dots */}
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+                      {project.images.map((_, i) => (
+                        <button
+                          key={i}
+                          onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i); }}
+                          className={cn(
+                            "size-1.5 rounded-full transition-all duration-300",
+                            currentImageIndex === i ? "bg-primary w-6" : "bg-white/40 hover:bg-white/60"
+                          )}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Side Nav Buttons */}
-          <div className="absolute inset-y-0 left-4 flex items-center z-20">
+          {/* Large Global Project Switchers */}
+          <div className="absolute inset-y-0 left-0 w-24 flex items-center justify-center z-20 group/nav-left pointer-events-none">
             <Button
-              variant="outline"
+              variant="ghost"
               size="icon"
-              onClick={prevProject}
-              className="rounded-full bg-background/20 backdrop-blur-md border-white/10 text-white hover:bg-white hover:text-black transition-all"
+              onClick={(e) => { e.stopPropagation(); prevProject(); }}
+              className="rounded-full text-white/20 hover:text-white hover:bg-white/10 size-16 pointer-events-auto transition-all -translate-x-4 group-hover/nav-left:translate-x-0"
             >
-              <ChevronLeft className="size-6" />
+              <ChevronLeft className="size-10" />
             </Button>
           </div>
-          <div className="absolute inset-y-0 right-4 flex items-center z-20">
+          <div className="absolute inset-y-0 right-0 w-24 flex items-center justify-center z-20 group/nav-right pointer-events-none">
             <Button
-              variant="outline"
+              variant="ghost"
               size="icon"
-              onClick={nextProject}
-              className="rounded-full bg-background/20 backdrop-blur-md border-white/10 text-white hover:bg-white hover:text-black transition-all"
+              onClick={(e) => { e.stopPropagation(); nextProject(); }}
+              className="rounded-full text-white/20 hover:text-white hover:bg-white/10 size-16 pointer-events-auto transition-all translate-x-4 group-hover/nav-right:translate-x-0"
             >
-              <ChevronRight className="size-6" />
+              <ChevronRight className="size-10" />
             </Button>
           </div>
         </div>

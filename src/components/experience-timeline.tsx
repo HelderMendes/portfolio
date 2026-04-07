@@ -1,91 +1,135 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
+import { motion, useScroll, useSpring, useTransform } from "framer-motion"
 import Image from "next/image"
 import { EXPERIENCE } from "@/lib/data"
 import { useLanguage } from "@/components/language-provider"
-import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
 
 export function ExperienceTimeline() {
   const { language } = useLanguage()
+  const containerRef = React.useRef<HTMLDivElement>(null)
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"]
+  })
+
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  })
 
   return (
-    <div className="space-y-16">
-      {EXPERIENCE.map((exp, index) => (
-        <motion.div
-          key={exp.id}
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: index * 0.2 }}
-          className="relative pl-12 md:pl-20 border-l-2 border-primary/20 last:border-none group pb-12"
-        >
-          {/* Timeline Dot & Line Pulse */}
-          <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary ring-4 ring-background group-hover:ring-primary/40 transition-all duration-300" />
-          
-          <div className="flex flex-col md:flex-row gap-8 items-start">
-            {/* Company Logo Bubble */}
-            <div className="shrink-0 w-16 h-16 rounded-3xl bg-secondary border border-border flex items-center justify-center font-heading font-black text-primary text-3xl shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500 hover:rotate-3 overflow-hidden relative">
-              {exp.logo ? (
-                <Image 
-                  src={exp.logo} 
-                  alt={exp.company} 
-                  fill 
-                  className="object-cover"
-                />
-              ) : (
-                exp.company.charAt(0)
-              )}
-            </div>
+    <div ref={containerRef} className="relative max-w-6xl mx-auto pl-8 md:pl-0">
+      {/* Animated Vertical Line (Growing on Scroll) */}
+      <div className="absolute left-[9px] md:left-1/2 top-0 bottom-0 w-[2px] bg-border/40 pointer-events-none -translate-x-1/2 hidden md:block" />
+      <motion.div 
+        style={{ scaleY, transformOrigin: "top" }}
+        className="absolute left-[9px] md:left-1/2 top-0 bottom-0 w-[2px] bg-primary shadow-[0_0_15px_rgba(var(--primary),0.5)] z-10 -translate-x-1/2 hidden md:block"
+      />
 
-            <div className="flex-1 space-y-6">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="space-y-1">
-                  <h3 className="text-3xl font-heading font-black tracking-tight text-foreground group-hover:text-primary transition-colors">
+      {/* Grid Iteration */}
+      <div className="space-y-32">
+        {EXPERIENCE.map((exp, index) => (
+          <div key={exp.id} className="relative group">
+            <div className="flex flex-col md:flex-row gap-12 lg:gap-24 items-start">
+              
+              {/* Left Column: Meta & Tech (Mobile First) */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className={cn(
+                  "w-full md:w-1/2 flex flex-col gap-6 pt-2 items-start",
+                  index % 2 === 0 ? "md:order-1 md:text-right md:items-end" : "md:order-2 md:text-left md:items-start"
+                )}
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center gap-4 md:gap-3 justify-start md:justify-end">
+                    <span className="text-sm font-black uppercase tracking-[.3em] text-primary bg-primary/10 px-4 py-1.5 rounded-full">
+                       {exp.period}
+                    </span>
+                  </div>
+                  <h4 className="text-3xl font-heading font-black text-foreground uppercase italic tracking-tighter">
+                    {exp.company}
+                  </h4>
+                  <p className="text-sm font-black uppercase tracking-[.3em] text-muted-foreground opacity-40">
+                    {exp.location}
+                  </p>
+                </div>
+
+                {/* Company Logo in Container */}
+                <div className="size-20 rounded-[2.5rem] bg-muted/30 border border-border flex items-center justify-center p-4 group-hover:scale-105 transition-transform duration-500 overflow-hidden shrink-0">
+                  {exp.logo ? (
+                    <Image 
+                      src={exp.logo} 
+                      alt={exp.company} 
+                      width={48} 
+                      height={48} 
+                      className="object-contain filter transition-all grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100"
+                    />
+                  ) : (
+                    <span className="font-heading font-black text-2xl text-primary">{exp.company.charAt(0)}</span>
+                  )}
+                </div>
+
+                {/* Technologies List */}
+                {exp.technologies && (
+                  <div className={cn("flex flex-wrap gap-2 pt-4", index % 2 === 0 ? "md:justify-end" : "md:justify-start")}>
+                    {exp.technologies.map(tech => (
+                      <span key={tech} className="px-3 py-1 bg-muted border border-border/50 text-[10px] font-black uppercase tracking-widest text-muted-foreground/80 rounded-lg">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Center Circle Pin (Desktop Only) */}
+              <div className="absolute left-[-32px] md:left-1/2 top-4 size-6 rounded-full bg-background border-4 border-primary z-20 -translate-x-1/2 shadow-[0_0_20px_rgba(var(--primary),0.3)] hidden md:block" />
+
+              {/* Right Column: Experience Summary */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className={cn(
+                  "w-full md:w-1/2 space-y-6 pt-2 pb-12 md:pb-0 border-l border-border/20 md:border-none pl-8 md:pl-0",
+                  index % 2 === 0 ? "md:order-2" : "md:order-1"
+                )}
+              >
+                <div className="space-y-4">
+                  <h3 className="text-4xl md:text-5xl font-heading font-black tracking-tight text-foreground leading-tight">
                     {language === "en" ? exp.role.en : exp.role.nl}
                   </h3>
-                  <div className="flex items-center gap-3">
-                    <p className="text-primary font-bold text-lg uppercase tracking-wider">
-                      {exp.company}
-                    </p>
-                    <span className="text-muted-foreground/30 font-black">•</span>
-                    <p className="text-muted-foreground font-medium uppercase text-xs tracking-widest">
-                      {exp.location}
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col md:items-end gap-3">
-                  {exp.current ? (
-                    <div className="px-5 py-2 rounded-full bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-[0.25em] whitespace-nowrap shadow-[0_0_20px_rgba(var(--primary),0.3)] animate-pulse">
-                      {language === "en" ? "Current Focus / Last Work" : "Huidige Focus / Laatste Werk"}
-                    </div>
-                  ) : (
-                    <div className="px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.25em] text-primary whitespace-nowrap shadow-sm">
-                      {exp.period}
-                    </div>
-                  )}
+                  
                   {exp.current && (
-                    <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30 uppercase text-[8px] tracking-[0.2em] font-black w-fit px-3 py-1">
-                      {exp.period}
-                    </Badge>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-500/10 text-green-500 border border-green-500/20 rounded-full text-[9px] font-black uppercase tracking-widest animate-pulse">
+                      Currently Shaping
+                    </div>
                   )}
                 </div>
-              </div>
 
-              <ul className="space-y-4 list-none bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/10 shadow-lg">
-                {(language === "en" ? exp.description.en : exp.description.nl).map((point: string, i: number) => (
-                  <li key={i} className="text-muted-foreground leading-relaxed flex gap-4 text-sm md:text-base font-medium">
-                    <span className="text-primary mt-1.5 shrink-0 w-2 h-2 rounded-full bg-primary/40 shadow-[0_0_8px_rgba(var(--primary),0.3)]" />
-                    <span className="group-hover:text-foreground/90 transition-colors">{point}</span>
-                  </li>
-                ))}
-              </ul>
+                <ul className="space-y-6">
+                  {(language === "en" ? exp.description.en : exp.description.nl).map((point: string, i: number) => (
+                    <li key={i} className="relative">
+                      <p className="text-lg md:text-xl text-muted-foreground font-medium leading-relaxed group-hover:text-foreground transition-colors">
+                        {point}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+
             </div>
           </div>
-        </motion.div>
-      ))}
+        ))}
+      </div>
     </div>
   )
 }

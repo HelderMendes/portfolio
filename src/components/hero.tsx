@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/components/language-provider';
@@ -10,12 +9,38 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 const text = {
-    greeting: { en: "Hi, I'm Helder Mendes", nl: 'Hoi, ik ben Helder Mendes' },
-    role: { en: 'Design-First', nl: 'Design-First' },
-    tagline: { en: 'Full Stack Developer', nl: 'Full Stack Developer' },
+    greeting: {
+        en: "Hi, I'm Helder Mendes — Frontend Developer",
+        nl: 'Hallo, ik ben Helder Mendes — Frontend Developer',
+    },
+    role: {
+        en: 'Web Applications',
+        nl: 'Web Applicaties',
+    },
+    tagline: {
+        en: 'Frontend design & high-performance code',
+        nl: 'Frontend design & high-performance code',
+    },
     description: {
-        en: 'Combining 15+ years of design heritage with modern development to build performant, visually stunning digital experiences.',
-        nl: 'De combinatie van 15+ jaar ontwerpervaring met moderne ontwikkeling om performante, visueel verbluffende digitale ervaringen te creëren.',
+        en: 'Senior Frontend Engineer with full-stack reach and a 15+ year design heritage. I specialize in React, Next.js, and orchestrating the visual hierarchy of complex data ecosystems.',
+        nl: 'Senior Frontend Developer met full-stack ervaring en een 15+ jaar design heritage. Ik specialiseer me in React, Next.js, en het orkestreren van de visuele hiërarchie van complexe data-ecosystemen.',
+    },
+    ctaWork: { en: 'View Work', nl: 'Bekijk werk' },
+    ctaCV: { en: 'Get CV', nl: 'Download CV' },
+};
+const textExtra = {
+    greeting: {
+        en: 'The Design-Driven Frontend Engineer',
+        nl: 'De Design-Driven Frontend Engineer',
+    },
+    role: { en: 'I build the bridge between', nl: 'Ik bouw de brug tussen' },
+    tagline: {
+        en: 'high-end design & high-performance code.',
+        nl: 'high-end design & high-performance code.',
+    },
+    description: {
+        en: 'Frontend Engineer & Former Art Director specializing in React, Next.js, and the visual hierarchy of complex data ecosystems.',
+        nl: 'Frontend Engineer & Voormalig Art Director gespecialiseerd in React, Next.js en de visuele hiërarchie van complexe data-ecosystemen.',
     },
     ctaWork: { en: 'View Work', nl: 'Bekijk Werk' },
     ctaCV: { en: 'Get CV', nl: 'Download CV' },
@@ -36,7 +61,7 @@ export function Hero() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
-                className='max-w-4xl space-y-8 flex flex-col items-center text-center'
+                className='max-w-4xl space-y-7 flex flex-col items-center text-center'
             >
                 <motion.div
                     transition={{ delay: 0.2 }}
@@ -52,13 +77,13 @@ export function Hero() {
                 </motion.div>
 
                 <div className='space-y-4'>
-                    <h2 className='text-primary font-semibold tracking-[.1em] uppercase text-sm md:text-base mb-2'>
+                    <h2 className='text-primary/80 font-light tracking-widest uppercase text-sm md:text-base mb-6'>
                         {language === 'en'
                             ? text.greeting.en
                             : text.greeting.nl}
                     </h2>
 
-                    <h1 className='text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-foreground leading-none'>
+                    <h1 className='text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground leading-12'>
                         {language === 'en' ? text.role.en : text.role.nl}
                         <span className='block text-primary/60'>
                             {language === 'en'
@@ -96,34 +121,6 @@ export function Hero() {
                         <Download className='mr-2 size-5 text-primary' />
                         {language === 'en' ? text.ctaCV.en : text.ctaCV.nl}
                     </Link>
-                </div>
-            </motion.div>
-
-            {/* Decorative Scroll Down Element */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1 }}
-                className='absolute bottom-10 left-12 right-12 hidden lg:block'
-            >
-                <div className='flex items-center justify-between gap-12 opacity-30 grayscale hover:opacity-70 transition-opacity'>
-                    {[
-                        "/logos_huisStyle/stadshuis_logo.jpg",
-                        "/logos_huisStyle/DDFestival_logo.jpg",
-                        "/logos_huisStyle/cultuurkust_logo.jpg",
-                        "/logos_huisStyle/MonkeyMotions_logo.jpg",
-                        "/logos_huisStyle/LusoFlavours_logo.jpg",
-                        "/logos_huisStyle/Unitrip_logo.jpg"
-                    ].map((logo, i) => (
-                        <div key={i} className="relative h-8 w-24">
-                            <Image 
-                                src={logo} 
-                                alt="Client Logo" 
-                                fill 
-                                className="object-contain"
-                            />
-                        </div>
-                    ))}
                 </div>
             </motion.div>
 

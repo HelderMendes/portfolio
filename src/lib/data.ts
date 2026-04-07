@@ -12,7 +12,7 @@ export type Project = {
   tags: string[];
   link?: string;
   github?: string;
-  image?: string;
+  images: string[];
   featured?: boolean;
 };
 
@@ -27,6 +27,7 @@ export type Experience = {
   period: string;
   current?: boolean;
   logo?: string;
+  technologies?: string[];
   description: {
     en: string[];
     nl: string[];
@@ -45,51 +46,51 @@ export const PROJECTS: Project[] = [
   {
     id: "openml",
     title: "OpenML.org Migration",
-    category: { en: "Full Stack Architecture", nl: "Full Stack Architectuur" },
+    category: { en: "Frontend Architecture", nl: "Frontend Architectuur" },
     description: {
-      en: "Orchestrated the high-scale migration of the global platform to a modern Next.js/TypeScript architecture. Dockerizing microservices and managing global SEO/Performance.",
-      nl: "Gecoördineerde grootschalige migratie naar een moderne Next.js/TypeScript architectuur. Dockerizen van microservices en beheren van wereldwijde SEO/Performance.",
+      en: "Orchestrated the transition of a global machine learning platform into a modern React ecosystem. Focused on turning high-density scientific data into intuitive, design-led interfaces using Next.js and TypeScript.",
+      nl: "Gecoördineerde overgang van een wereldwijd machine learning-platform naar een modern React-ecosysteem. Gericht op het transformeren van complexe wetenschappelijke data naar een intuïtieve, design-led interface.",
     },
-    tags: ["Next.js", "TypeScript", "Docker", "Kubernetes", "FastAPI"],
+    tags: ["Next.js", "TypeScript", "Docker", "Kubernetes", "UX Architecture"],
     link: "https://openml.org",
-    image: "/Projest_websites/openmlorg_vercel_app01.png",
+    images: ["/project_websites/openmlorg_vercel_app01.png", "/project_websites/openmlorg_vercel_app.png"],
     featured: true,
   },
   {
     id: "fastfit",
     title: "FastFit Automotive SaaS",
-    category: { en: "Web Application Design", nl: "Webapplicatie Ontwerp" },
+    category: { en: "Technical Product Design", nl: "Technisch Productontwerp" },
     description: {
-      en: "UI/UX design and architecture for specialized automotive software. Focused on a high-performance web interface for complex machine data.",
-      nl: "UI/UX ontwerp en architectuur voor gespecialiseerde automotive software. Gericht op een hoogwaardige webinterface voor complexe machinedata.",
+      en: "Crafting the visual and technical blueprint for specialized automotive logic. Bridging the gap between rigid machine data and high-fidelity user workflows.",
+      nl: "Het creëren van de visuele en technische blauwdruk voor gespecialiseerde automotive logica. Overbruggen van de kloof tussen complexe machinedata en hoogwaardige user workflows.",
     },
-    tags: ["Product Design", "SaaS", "Web Design"],
-    image: "/webDesign/fastfit01.png",
+    tags: ["SaaS", "Product Design", "Process Architecture"],
+    images: ["/webDesign/fastfit01.png", "/webDesign/FastFit.png", "/project_websites/fastfit-Automotive_software.jpeg"],
     featured: true,
   },
   {
     id: "emlinked",
     title: "EMLinked Professional Network",
-    category: { en: "Social Platform Design", nl: "Sociaal Platformontwerp" },
+    category: { en: "High-Fidelity Branding", nl: "High-Fidelity Branding" },
     description: {
-      en: "Specialized networking platform focusing on intuitive user experience and high-fidelity frontend architecture.",
-      nl: "Gespecialiseerd netwerkplatform gericht op intuïtieve gebruikerservaring en high-fidelity frontend architectuur.",
+      en: "Designing an elite networking ecosystem focused on visual consistency and performant frontend architecture.",
+      nl: "Ontwerpen van een elite netwerk-ecosysteem gericht op visuele consideratie en performante frontend-architectuur.",
     },
-    tags: ["Next.js", "UX Design", "Networking"],
-    image: "/webDesign/emlinked01.png",
+    tags: ["Branding", "Next.js", "Interaction Design"],
+    images: ["/webDesign/emlinked01.png", "/webDesign/emlinked02.png", "/webDesign/emlinked.png", "/project_websites/emlinked-nl.jpeg"],
     featured: true,
   },
   {
     id: "lookout-mode",
     title: "Lookout Mode",
-    category: { en: "E-Commerce", nl: "E-Commerce" },
+    category: { en: "E-Commerce Design", nl: "E-Commerce Ontwerp" },
     description: {
-      en: "High-end fashion e-commerce prototype. Proving that aesthetic excellence can meet rigorous technical standards.",
-      nl: "High-end fashion e-commerce prototype. Bewijs dat esthetische uitmuntendheid kan samengaan met strikte technische standaarden.",
+      en: "Proving that heavy aesthetic excellence can run on high-performance code. A prototype focusing on motion and responsive layouts.",
+      nl: "Bewijs dat zware esthetische uitmuntendheid kan draaien op hoogwaardige code. Een prototype gericht op motion en responsive layouts.",
     },
-    tags: ["Next.js", "Tailwind CSS", "Premium UI"],
+    tags: ["Next.js", "Motion", "Premium UI"],
     link: "https://lookoutmode.vercel.app",
-    image: "/APPs/lookoutmode.vercel.png",
+    images: ["/APPs/lookoutmode.vercel.png", "/project_websites/lookout.jpg"],
   },
   {
     id: "svs",
@@ -100,7 +101,7 @@ export const PROJECTS: Project[] = [
       nl: "Modern beheersportal met real-time datavisualisatie en complexe gebruikersworkflows.",
     },
     tags: ["Web Design", "Data Viz", "SaaS"],
-    image: "/webDesign/SVS.png",
+    images: ["/webDesign/SVS.png"],
   },
   {
     id: "deboshalte",
@@ -111,7 +112,7 @@ export const PROJECTS: Project[] = [
       nl: "Community hub voor een unieke lokale locatie, gericht op toegankelijkheid en visuele warmte.",
     },
     tags: ["Web Design", "Community", "Identity"],
-    image: "/webDesign/DeBoshalte.png",
+    images: ["/webDesign/DeBoshalte.png"],
   },
   {
     id: "biomaatschappij",
@@ -122,7 +123,7 @@ export const PROJECTS: Project[] = [
       nl: "Complexe multisite architectuur voor een wetenschappelijke stichting, met beheer van security en digitale publicatie.",
     },
     tags: ["WordPress", "Security", "Multisite"],
-    image: "/Projest_websites/biomaatschappii.jpg",
+    images: ["/project_websites/biomaatschappii.jpg"],
   },
   {
     id: "faect",
@@ -133,7 +134,7 @@ export const PROJECTS: Project[] = [
       nl: "Hoogwaardige marketingwebsite en maatwerk functies voor een technologie- en automatiseringsbedrijf.",
     },
     tags: ["Next.js", "Animation", "SaaS"],
-    image: "/Projest_websites/faect-nl.png",
+    images: ["/project_websites/faect-nl.png"],
   },
   {
     id: "monkeymotions",
@@ -144,18 +145,18 @@ export const PROJECTS: Project[] = [
       nl: "Interactief platform voor lichamelijke opvoeding en talenttracking in scholen.",
     },
     tags: ["Product Design", "UX Architecture"],
-    image: "/Projest_websites/MonkeyMotions.jpg",
+    images: ["/project_websites/MonkeyMotions.jpg"],
   },
   {
     id: "heritage",
     title: "Art Direction Legacy",
-    category: { en: "Design Heritage", nl: "Ontwerpervaring" },
+    category: { en: "Senior Strategic Art Direction", nl: "Senior Strategische Art Direction" },
     description: {
-      en: "15+ years of strategic art direction for global leaders like Philips and Mercedes. This foundation fuels my technical precision.",
-      nl: "15+ jaar strategische art direction voor wereldwijde marktleiders zoals Philips en Mercedes. Dit fundament voedt mijn technische precisie.",
+      en: "15+ years of strategic leadership at Hemels International and Edições Arrábida, defining visual identities for Philips and Mercedes.",
+      nl: "15+ jaar strategisch leiderschap bij Hemels International en Edições Arrábida, waarbij visuele identiteiten werden gedefinieerd voor Philips en Mercedes.",
     },
-    tags: ["Art Direction", "Editorial", "Typography"],
-    image: "/publicaties/Nyenrode_magazine.jpg",
+    tags: ["Senior Leadership", "Typography", "Art Direction"],
+    images: ["/publicaties/Nyenrode_magazine.jpg", "/publicaties/Portfolio_magazine.jpg", "/publicaties/Pim_magazine.jpg"],
   },
 ];
 
@@ -163,87 +164,77 @@ export const EXPERIENCE: Experience[] = [
   {
     id: "openml-tu-e",
     role: {
-      en: "Full-Stack Developer (Open Source Migration)",
-      nl: "Full-Stack Developer (Open Source Migratie)",
+      en: "Design-Driven Frontend Lead (OpenML)",
+      nl: "Design-Driven Frontend Lead (OpenML)",
     },
     company: "OpenML.org (TU/Eindhoven)",
     location: "Eindhoven, NL",
     period: "2024 - Present",
     current: true,
+    technologies: ["React 19", "Next.js 15", "TurboPack", "Tailwind v4", "Docker", "Zod"],
     description: {
       en: [
-        "Frontend Migration Lead for OpenML.org platform.",
-        "Developing Next.js and FastAPI microservices.",
-        "Managing Docker and Kubernetes deployment strategies.",
+        "Leading the complex frontend migration for a global scientific community.",
+        "Architecting type-safe React systems that handle high-density machine learning metadata.",
+        "Bridging scientific complexity with accessible UX/UI.",
       ],
       nl: [
-        "Frontend Migratie Lead voor het OpenML.org platform.",
-        "Ontwikkelen van Next.js en FastAPI microservices.",
-        "Beheren van Docker- en Kubernetes implementatiestrategieën.",
+        "Leidinggevende bij de complexe frontend-migratie voor een wereldwijde wetenschappelijke community.",
+        "Architectuur van type-safe React-systemen voor grootschalige machine learning metadata.",
+        "Overbruggen van wetenschappelijke complexiteit met toegankelijke UX/UI.",
       ],
     },
   },
   {
-    id: "freelance-dev",
+    id: "helder-design",
     role: {
-      en: "Freelance Web Developer & Designer",
-      nl: "Freelance Web Developer & Designer",
+      en: "Independent Web Architect",
+      nl: "Zelfstandig Web Architect",
     },
     company: "Helder Design",
     location: "Amsterdam, NL",
     period: "2010 - Present",
     logo: "/logos_huisStyle/stadshuis_logo.jpg",
+    technologies: ["Next.js", "WordPress REST API", "Framer Motion", "PHP", "AWS"],
     description: {
       en: [
-        "30+ modern WordPress & React web solutions.",
-        "Strategic UX/UI and backend development.",
-        "Key clients: biomaatschappij.nl, werkaanhetspoel.nl.",
+        "Full-cycle development for 30+ production websites, including complex management portals and SaaS platforms.",
+        "Technical consulting for SMEs, moving them from legacy systems to modern, design-centered architectures.",
       ],
       nl: [
-        "30+ moderne WordPress & React weboplossingen.",
-        "Strategische UX/UI en backend ontwikkeling.",
-        "Belangrijke klanten: biomaatschappij.nl, werkaanhetspoel.nl.",
+        "Full-cycle ontwikkeling voor 30+ productie websites, inclusief complexe beheersportals en SaaS-platforms.",
+        "Technische consultancy voor mkb-bedrijven, waarbij legacy-systemen worden gemoderniseerd naar design-centered architecturen.",
       ],
     },
   },
   {
     id: "art-director",
     role: {
-      en: "Senior Art Director / Graphic Designer",
-      nl: "Senior Art Director / Grafisch Ontwerper",
+      en: "Senior Art Director (Strategic Era)",
+      nl: "Senior Art Director (Strategische Era)",
     },
-    company: "Communipart / Hemels",
-    location: "Amsterdam, NL",
+    company: "Hemels International / Edições Arrábida",
+    location: "Amsterdam / Lisbon",
     period: "1993 - 2009",
     logo: "/publicaties/Portfolio_magazine.jpg",
+    technologies: ["Editorial Design", "Typography", "Branding", "Grid Theory", "Creative Direction"],
     description: {
       en: [
-        "Visual identities for Philips, Mercedes, and Daimler.",
-        "Mastery of grid systems and high-fidelity typography.",
+        "Strategic Art Direction for global market leaders like Philips, Mercedes-Benz, and DaimlerChrysler.",
+        "Managed high-level visual production, from magazine layouts to total brand visual identities.",
+        "Defining the standard for high-fidelity communication in the automotive and luxury sectors.",
       ],
       nl: [
-        "Visuele identiteiten voor Philips, Mercedes en Daimler.",
-        "Beheersing van grid-systemen en high-fidelity typografie.",
+        "Strategische Art Direction voor marktleders zoals Philips, Mercedes-Benz en DaimlerChrysler.",
+        "Beheer van hoogwaardige visuele productie, van tijdschriftlay-outs tot volledige merkidentiteiten.",
+        "Het definiëren van de standaard voor high-fidelity communicatie in de automotive- en luxesector.",
       ],
     },
   },
 ];
 
-export const SKILL_CATEGORIES: SkillCategory[] = [
-  {
-    category: { en: "Frontend", nl: "Frontend" },
-    skills: ["React 19", "Next.js 15", "TypeScript", "Tailwind v4", "Framer Motion"],
-  },
-  {
-    category: { en: "Architecture", nl: "Architectuur" },
-    skills: ["Docker", "Kubernetes", "PostgreSQL", "FastAPI", "Zustand"],
-  },
-  {
-    category: { en: "Design", nl: "Design" },
-    skills: ["Web Design", "UI/UX", "Art Direction", "Figma", "Adobe CS"],
-  },
-  {
-    category: { en: "Workflow", nl: "Workflow" },
-    skills: ["Git", "CI/CD", "Vercel", "AI Optimization"],
-  },
+export const LANGUAGES = [
+  { name: { en: "Dutch", nl: "Nederlands" }, level: "NT2 Level (Workplace Fluent)" },
+  { name: { en: "English", nl: "Engels" }, level: "Professional Mastery" },
+  { name: { en: "Portuguese", nl: "Portugees" }, level: "Native Proficiency" },
 ];

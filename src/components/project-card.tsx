@@ -27,9 +27,9 @@ export function ProjectCard({ project }: { project: Project }) {
       <Card className="group h-full flex flex-col bg-card/80 backdrop-blur-sm border-border hover:border-primary/50 hover:shadow-[0_0_30px_rgba(var(--primary),0.1)] transition-all overflow-hidden">
         <CardHeader className="p-0">
           <div className="relative aspect-video overflow-hidden">
-            {project.image ? (
+            {project.images && project.images[0] ? (
               <Image
-                src={project.image}
+                src={project.images[0]}
                 alt={project.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
