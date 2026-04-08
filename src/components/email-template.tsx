@@ -1,4 +1,15 @@
 import * as React from 'react';
+import {
+  Html,
+  Body,
+  Head,
+  Heading,
+  Hr,
+  Container,
+  Preview,
+  Section,
+  Text,
+} from '@react-email/components';
 
 interface EmailTemplateProps {
   name: string;
@@ -13,41 +24,50 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   subject,
   message,
 }) => (
-  <div style={{
-    fontFamily: 'system-ui, -apple-system, sans-serif',
-    lineHeight: '1.6',
-    color: '#1a1a1b',
-    padding: '24px',
-    backgroundColor: '#f8fafc',
-    borderRadius: '12px'
-  }}>
-    <div style={{
-      backgroundColor: '#ffffff',
-      padding: '32px',
-      borderRadius: '8px',
-      boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+  <Html>
+    <Head />
+    <Preview>New message from {name}: {subject}</Preview>
+    <Body style={{
+      backgroundColor: '#f8fafc',
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      padding: '40px 0',
     }}>
-      <h1 style={{
-        fontSize: '24px',
-        fontWeight: '700',
-        color: '#2563eb',
-        marginTop: '0'
-      }}>New Message from Portfolio</h1>
-      
-      <div style={{ marginBottom: '24px' }}>
-        <p style={{ margin: '4px 0', fontSize: '14px', color: '#64748b', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '0.05em' }}>From</p>
-        <p style={{ margin: '0', fontSize: '18px', fontWeight: '600' }}>{name} ({email})</p>
-      </div>
+      <Container style={{
+        backgroundColor: '#ffffff',
+        border: '1px solid #e2e8f0',
+        borderRadius: '12px',
+        padding: '48px',
+        maxWidth: '600px',
+        margin: '0 auto',
+      }}>
+        <Heading style={{
+          fontSize: '24px',
+          fontWeight: '700',
+          color: '#2563eb',
+          margin: '0 0 24px 0',
+          textAlign: 'left' as const,
+        }}>
+          New Message from Portfolio
+        </Heading>
 
-      <div style={{ marginBottom: '24px' }}>
-        <p style={{ margin: '4px 0', fontSize: '14px', color: '#64748b', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '0.05em' }}>Subject</p>
-        <p style={{ margin: '0', fontSize: '18px', fontWeight: '600' }}>{subject}</p>
-      </div>
+        <Section style={{ marginBottom: '24px' }}>
+          <Text style={{ margin: '0 0 4px 0', fontSize: '12px', color: '#64748b', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '0.05em' }}>From</Text>
+          <Text style={{ margin: '0', fontSize: '16px', fontWeight: '600', color: '#1e293b' }}>{name} ({email})</Text>
+        </Section>
 
-      <div style={{ paddingTop: '24px', borderTop: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '4px 0', fontSize: '14px', color: '#64748b', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '0.05em' }}>Message</p>
-        <p style={{ margin: '0', whiteSpace: 'pre-wrap' }}>{message}</p>
-      </div>
-    </div>
-  </div>
+        <Section style={{ marginBottom: '24px' }}>
+          <Text style={{ margin: '0 0 4px 0', fontSize: '12px', color: '#64748b', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '0.05em' }}>Subject</Text>
+          <Text style={{ margin: '0', fontSize: '16px', fontWeight: '600', color: '#1e293b' }}>{subject}</Text>
+        </Section>
+
+        <Hr style={{ borderColor: '#e2e8f0', margin: '24px 0' }} />
+
+        <Section>
+          <Text style={{ margin: '0 0 4px 0', fontSize: '12px', color: '#64748b', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '0.05em' }}>Message</Text>
+          <Text style={{ margin: '0', fontSize: '16px', color: '#334155', lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>{message}</Text>
+        </Section>
+      </Container>
+    </Body>
+  </Html>
 );
+
