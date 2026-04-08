@@ -28,14 +28,14 @@ export function ExperienceTimeline() {
       <div className="absolute left-[9px] md:left-1/2 top-0 bottom-0 w-[2px] bg-border/40 pointer-events-none -translate-x-1/2 hidden md:block" />
       <motion.div 
         style={{ scaleY, transformOrigin: "top" }}
-        className="absolute left-[9px] md:left-1/2 top-0 bottom-0 w-[2px] bg-primary shadow-[0_0_15px_rgba(var(--primary),0.5)] z-10 -translate-x-1/2 hidden md:block"
+        className="absolute left-[9px] md:left-1/2 top-0 bottom-0 w-[2px] bg-primary shadow-[0_0_15px_oklch(from_var(--primary)_l_c_h/0.5)] z-10 -translate-x-1/2 hidden md:block"
       />
 
       {/* Grid Iteration */}
       <div className="space-y-32">
         {EXPERIENCE.map((exp, index) => (
           <div key={exp.id} className="relative group">
-            <div className="flex flex-col md:flex-row gap-12 lg:gap-24 items-start">
+            <div className="flex flex-col md:flex-row gap-12 lg:gap-24 items-center">
               
               {/* Left Column: Meta & Tech (Mobile First) */}
               <motion.div
@@ -90,7 +90,7 @@ export function ExperienceTimeline() {
               </motion.div>
 
               {/* Center Circle Pin (Desktop Only) */}
-              <div className="absolute left-[-32px] md:left-1/2 top-4 size-6 rounded-full bg-background border-4 border-primary z-20 -translate-x-1/2 shadow-[0_0_20px_rgba(var(--primary),0.3)] hidden md:block" />
+              <div className="absolute left-[-32px] md:left-1/2 top-1/2 size-8 rounded-full bg-background border-4 border-primary z-20 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_20px_oklch(from_var(--primary)_l_c_h/0.3)] hidden md:block" />
 
               {/* Right Column: Experience Summary */}
               <motion.div
@@ -99,7 +99,7 @@ export function ExperienceTimeline() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className={cn(
-                  "w-full md:w-1/2 space-y-6 pt-2 pb-12 md:pb-0 border-l border-border/20 md:border-none pl-8 md:pl-0",
+                  "w-full md:w-1/2 space-y-6 pb-12 md:pb-0 border-l border-border/20 md:border-none pl-8 md:pl-0",
                   index % 2 === 0 ? "md:order-2" : "md:order-1"
                 )}
               >

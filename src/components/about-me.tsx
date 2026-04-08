@@ -160,7 +160,7 @@ export function AboutMe() {
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 1 }}
-                      className='grid grid-cols-2 gap-4 h-[100px]'
+                      className='grid grid-cols-2 gap-4'
                   >
                       <div className='space-y-4 pt-8'>
                           <motion.div
@@ -169,7 +169,7 @@ export function AboutMe() {
                           >
                               <Image
                                   src='/project_websites/faect_lookout.png'
-                                  alt='opemML Migration'
+                                  alt='Faect Lookout'
                                   fill
                                   className='object-contain'
                               />
@@ -179,8 +179,8 @@ export function AboutMe() {
                               className='relative aspect-3/4 rounded-md overflow-hidden shadow-lg border border-white/10'
                           >
                               <Image
-                                  src='/project_websites/emlinked_webdesign.png'
-                                  alt='Lookout Mode'
+                                  src='/webDesign/emlinked_webdesign.png'
+                                  alt='Emlinked Web Design'
                                   fill
                                   className='object-cover'
                               />
@@ -193,7 +193,7 @@ export function AboutMe() {
                           >
                               <Image
                                   src='/project_websites/openMLorg.png'
-                                  alt='Uva Mosques Cover'
+                                  alt='OpenML.org Migration'
                                   fill
                                   className='object-cover'
                               />
@@ -204,7 +204,7 @@ export function AboutMe() {
                           >
                               <Image
                                   src='/project_websites/luxe_and_tharros.png'
-                                  alt='Portfolio Magazine'
+                                  alt='Luxe & Tharros'
                                   fill
                                   className='object-cover'
                               />
