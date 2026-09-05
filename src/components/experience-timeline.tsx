@@ -65,13 +65,15 @@ export function ExperienceTimeline() {
                 {/* Company Logo in Container */}
                 <div className="size-20 rounded-[2.5rem] bg-muted/30 border border-border flex items-center justify-center p-4 group-hover:scale-105 transition-transform duration-500 overflow-hidden shrink-0">
                   {exp.logo ? (
-                    <Image 
-                      src={exp.logo} 
-                      alt={exp.company} 
-                      width={48} 
-                      height={48} 
-                      className="object-contain filter transition-all grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100"
-                    />
+                    <div className="relative size-12">
+                      <Image
+                        src={exp.logo}
+                        alt={exp.company}
+                        fill
+                        sizes="48px"
+                        className="object-contain filter transition-all grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100"
+                      />
+                    </div>
                   ) : (
                     <span className="font-heading font-black text-2xl text-primary">{exp.company.charAt(0)}</span>
                   )}

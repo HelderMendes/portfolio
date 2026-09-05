@@ -90,7 +90,7 @@ export const PROJECTS: Project[] = [
     },
     tags: ["Next.js", "Motion", "Premium UI"],
     link: "https://lookoutmode.vercel.app",
-    images: ["/APPs/lookoutmode.vercel.png", "/project_websites/lookout.jpg"],
+    images: ["/APPs/lookoutmode.vercel.jpg", "/project_websites/lookout.jpg"],
   },
   {
     id: "svs",

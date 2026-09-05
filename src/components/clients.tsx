@@ -45,6 +45,7 @@ export function Clients() {
                                 src={logo}
                                 alt="Client Logo"
                                 fill
+                                sizes="128px"
                                 className="object-contain"
                             />
                         </div>

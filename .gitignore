@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local-only, unrelated to this project
+/caveman
+/job-applications
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

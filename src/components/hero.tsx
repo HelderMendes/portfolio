@@ -71,6 +71,7 @@ export function Hero() {
                         src='/Helder03.png'
                         alt='Helder Mendes'
                         fill
+                        sizes='104px'
                         className='object-cover'
                         priority
                     />

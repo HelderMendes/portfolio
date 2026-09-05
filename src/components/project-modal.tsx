@@ -170,6 +170,7 @@ export function ProjectModal({ initialIndex, onClose, isOpen }: ProjectModalProp
                         src={project.images[currentImageIndex]}
                         alt={`${project.title} screenshot ${currentImageIndex + 1}`}
                         fill
+                        sizes="100vw"
                         className="object-contain"
                         priority
                       />

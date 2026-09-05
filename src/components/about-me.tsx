@@ -171,6 +171,7 @@ export function AboutMe() {
                                   src='/project_websites/faect_lookout.png'
                                   alt='Faect Lookout'
                                   fill
+                                  sizes='(max-width: 767px) 50vw, 25vw'
                                   className='object-contain'
                               />
                           </motion.div>
@@ -182,6 +183,7 @@ export function AboutMe() {
                                   src='/webDesign/emlinked_webdesign.png'
                                   alt='Emlinked Web Design'
                                   fill
+                                  sizes='(max-width: 767px) 50vw, 25vw'
                                   className='object-cover'
                               />
                           </motion.div>
@@ -195,6 +197,7 @@ export function AboutMe() {
                                   src='/project_websites/openMLorg.png'
                                   alt='OpenML.org Migration'
                                   fill
+                                  sizes='(max-width: 767px) 50vw, 25vw'
                                   className='object-cover'
                               />
                           </motion.div>
@@ -206,6 +209,7 @@ export function AboutMe() {
                                   src='/project_websites/luxe_and_tharros.png'
                                   alt='Luxe & Tharros'
                                   fill
+                                  sizes='(max-width: 767px) 50vw, 25vw'
                                   className='object-cover'
                               />
                           </motion.div>
